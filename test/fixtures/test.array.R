@@ -1,9 +1,9 @@
 options( digits = 16 )
 library( jsonlite )
 
-alpha = 1
-beta = 1
-x = seq( -1000, 1000, 0.5 )
+alpha = 3
+beta = 17
+x = seq( 0, 1, 0.01 )
 y = pbeta( x, alpha, beta )
 
 cat( y, sep = ",\n" )
