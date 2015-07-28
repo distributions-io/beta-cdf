@@ -6,8 +6,8 @@ Cumulative Distribution Function
 
 The [cumulative distribution function](https://en.wikipedia.org/wiki/Cumulative_distribution_function) for a [Beta](https://en.wikipedia.org/wiki/Beta_distribution) random variable is
 
-<div class="equation" align="center" data-raw-text="" data-equation="eq:cdf">
-	<img src="" alt="Cumulative distribution function for a Beta distribution.">
+<div class="equation" align="center" data-raw-text="F(x;\alpha,\beta) = \dfrac{\operatorname{Beta}(x;\alpha,\beta)}{\operatorname{Beta}(\alpha,\beta)}" data-equation="eq:cdf">
+	<img src="https://cdn.rawgit.com/distributions-io/beta-cdf/2860cfdb283f4a8f61168ac2b1c339b52632a1c5/docs/img/eqn.svg" alt="Cumulative distribution function for a Beta distribution.">
 	<br>
 </div>
 
@@ -39,33 +39,42 @@ var matrix = require( 'dstructs-matrix' ),
 	x,
 	i;
 
-out = cdf( 1 );
-// returns
+out = cdf( 0.5 );
+// returns 0.5
 
-x = [ -4, -2, 0, 2, 4 ];
-out = cdf( x );
-// returns [...]
+x = [ 0.2, 0.4, 0.6, 0.8 ];
+out = cdf( x, {
+	'alpha': 2,
+	'beta': 2
+});
+// returns [ ~0.104, ~0.352, ~0.648, ~0.896 ]
 
 x = new Float32Array( x );
-out = cdf( x );
-// returns Float64Array( [...] )
+out = cdf( x, {
+	'alpha': 2,
+	'beta': 2
+});
+// returns Float64Array( [~0.104,~0.352,~0.648,~0.896] )
 
 x = new Float32Array( 6 );
 for ( i = 0; i < 6; i++ ) {
-	x[ i ] = i - 3;
+	x[ i ] = i / 6;
 }
 mat = matrix( x, [3,2], 'float32' );
 /*
-	[ -3 -2
-	  -1  0
-	   1  2 ]
+	[  0  1/6
+	  2/6 3/6
+	  4/6 5/6 ]
 */
 
-out = cdf( mat );
+out = cdf( mat, {
+	'alpha': 2,
+	'beta': 2
+});
 /*
-	[
-
-	   ]
+	[  0     ~0.0741
+	  ~0.259 ~0.5
+	  ~0.741 ~0.926  ]
 */
 ```
 
@@ -82,24 +91,23 @@ The function accepts the following `options`:
 A [Beta](https://en.wikipedia.org/wiki/Beta_distribution) distribution is a function of 2 parameter(s): `alpha`(first shape parameter) and `beta`(second shape parameter). By default, `alpha` is equal to `1` and `beta` is equal to `1`. To adjust either parameter, set the corresponding option(s).
 
 ``` javascript
-var x = [ -4, -2, 0, 2, 4 ];
+var x = [ 0.2, 0.4, 0.6, 0.8 ];
 
 var out = cdf( x, {
 	'alpha': 10,
 	'beta': 5
 });
-// returns [...]
+// returns [ ~0, ~0.0175, ~0.279, ~0.87 ]
 ```
 
 For non-numeric `arrays`, provide an accessor `function` for accessing `array` values.
 
 ``` javascript
 var data = [
-	[0,-4],
-	[1,-2],
-	[2,0],
-	[3,2],
-	[4,4],
+	[0,0.2],
+	[1,0.4],
+	[2,0.6],
+	[3,0.8]
 ];
 
 function getValue( d, i ) {
@@ -107,9 +115,11 @@ function getValue( d, i ) {
 }
 
 var out = cdf( data, {
+	'alpha': 2,
+	'beta': 2,
 	'accessor': getValue
 });
-// returns [...]
+// returns [ ~0.104, ~0.352, ~0.648, ~0.896 ]
 ```
 
 
@@ -117,24 +127,24 @@ To [deepset](https://github.com/kgryte/utils-deep-set) an object `array`, provid
 
 ``` javascript
 var data = [
-	{'x':[0,-4]},
-	{'x':[1,-2]},
-	{'x':[2,0]},
-	{'x':[3,2]},
-	{'x':[4,4]},
+	{'x':[0,0.2]},
+	{'x':[1,0.4]},
+	{'x':[2,0.6]},
+	{'x':[3,0.8]}
 ];
 
 var out = cdf( data, {
+	'alpha': 2,
+	'beta': 2,
 	'path': 'x/1',
 	'sep': '/'
 });
 /*
 	[
-		{'x':[0,]},
-		{'x':[1,]},
-		{'x':[2,]},
-		{'x':[3,]},
-		{'x':[4,]},
+		{'x':[0,~0.104]},
+		{'x':[1,~0.352]},
+		{'x':[2,~0.648]},
+		{'x':[3,~0.896]},
 	]
 */
 
@@ -147,18 +157,22 @@ By default, when provided a [`typed array`](https://developer.mozilla.org/en-US/
 ``` javascript
 var x, out;
 
-x = new Float64Array( [-4,-2,0,2,4] );
+x = new Float64Array( [0.2,0.4,0.6,0.8] );
 
 out = cdf( x, {
+	'alpha': 2,
+	'beta': 2,
 	'dtype': 'float32'
 });
-// returns Float32Array( [...] )
+// returns Float32Array( [~0.104,~0.352,~0.648,~0.896] )
 
 // Works for plain arrays, as well...
-out = cdf( [-4,-2,0,2,4], {
+out = cdf( [0.2,0.4,0.6,0.8], {
+	'alpha': 2,
+	'beta': 2,
 	'dtype': 'float32'
 });
-// returns Float32Array( [...] )
+// returns Float32Array( [~0.104,~0.352,~0.648,~0.896] )
 ```
 
 By default, the function returns a new data structure. To mutate the input data structure (e.g., when input values can be discarded or when optimizing memory usage), set the `copy` option to `false`.
@@ -170,34 +184,38 @@ var bool,
 	x,
 	i;
 
-x = [ -4, -2, 0, 2, 4 ];
+x = [ 0.2, 0.4, 0.6, 0.8 ];
 
 out = cdf( x, {
+	'alpha': 2,
+	'beta': 2,
 	'copy': false
 });
-// returns [...]
+// returns [ ~0.104, ~0.352, ~0.648, ~0.896 ]
 
 bool = ( x === out );
 // returns true
 
 x = new Float32Array( 6 );
 for ( i = 0; i < 6; i++ ) {
-	x[ i ] = i - 3 ;
+	x[ i ] = i / 6;
 }
 mat = matrix( x, [3,2], 'float32' );
 /*
-	[ -3 -2
-	  -1  0
-	   1  2 ]
+	[  0  1/6
+	  2/6 3/6
+	  4/6 5/6 ]
 */
 
 out = cdf( mat, {
+	'alpha': 2,
+	'beta': 2,
 	'copy': false
 });
 /*
-	[
-
-	   ]
+	[  0     ~0.0741
+	  ~0.259 ~0.5
+	  ~0.741 ~0.926  ]
 */
 
 bool = ( mat === out );
