@@ -1,8 +1,8 @@
 options( digits = 16 )
 library( jsonlite )
 
-alpha = 6
-beta = 3.2
+alpha = 2
+beta = 6
 x = seq( 0, 1, 0.01 )
 y = pbeta( x, alpha, beta )
 

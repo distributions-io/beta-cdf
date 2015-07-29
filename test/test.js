@@ -138,7 +138,7 @@ describe( 'distributions-beta-cdf', function tests() {
 			for ( var i = 0; i < data.length; i++ ) {
 				actual =  cdf( data[ i ], {
 					'alpha': validationData.alpha,
-		'beta': validationData.beta
+					'beta': validationData.beta
 				});
 				if ( isFiniteNumber( actual ) && isFiniteNumber( expected[ i ] ) ) {
 					assert.closeTo( actual, expected[ i ] , 1e-14 );
@@ -162,7 +162,7 @@ describe( 'distributions-beta-cdf', function tests() {
 
 		actual = cdf( data, {
 			'alpha': validationData.alpha,
-		'beta': validationData.beta
+			'beta': validationData.beta
 		});
 		assert.notEqual( actual, data );
 
@@ -193,7 +193,7 @@ describe( 'distributions-beta-cdf', function tests() {
 			expected,
 			i;
 
-		data = new Float32Array( validationData.data );
+		data = new Float64Array( validationData.data );
 
 		expected = new Float64Array( validationData.expected.map( function( d ) {
 			return d === 'Inf' ? Infinity : d;
@@ -201,7 +201,7 @@ describe( 'distributions-beta-cdf', function tests() {
 
 		actual = cdf( data, {
 			'alpha': validationData.alpha,
-		'beta': validationData.beta
+			'beta': validationData.beta
 		});
 		assert.notEqual( actual, data );
 
@@ -215,9 +215,9 @@ describe( 'distributions-beta-cdf', function tests() {
 		actual = cdf( data, {
 			'copy': false,
 			'alpha': validationData.alpha,
-		'beta': validationData.beta
+			'beta': validationData.beta
 		});
-		expected = new Float32Array( validationData.expected.map( function( d ) {
+		expected = new Float64Array( validationData.expected.map( function( d ) {
 			return d === 'Inf' ? Infinity : d;
 		}) );
 		assert.strictEqual( actual, data );
@@ -245,7 +245,7 @@ describe( 'distributions-beta-cdf', function tests() {
 		actual = cdf( data, {
 			'dtype': 'float32',
 			'alpha': validationData.alpha,
-		'beta': validationData.beta
+			'beta': validationData.beta
 		});
 
 		assert.notEqual( actual, data );
@@ -276,7 +276,7 @@ describe( 'distributions-beta-cdf', function tests() {
 		actual = cdf( data, {
 			'accessor': getValue,
 			'alpha': validationData.alpha,
-		'beta': validationData.beta
+			'beta': validationData.beta
 		});
 		assert.notEqual( actual, data );
 
@@ -291,7 +291,7 @@ describe( 'distributions-beta-cdf', function tests() {
 			'accessor': getValue,
 			'copy': false,
 			'alpha': validationData.alpha,
-		'beta': validationData.beta
+			'beta': validationData.beta
 		});
 		assert.strictEqual( actual, data );
 
@@ -320,7 +320,7 @@ describe( 'distributions-beta-cdf', function tests() {
 		actual = cdf( data, {
 			'path': 'x.1',
 			'alpha': validationData.alpha,
-		'beta': validationData.beta
+			'beta': validationData.beta
 		});
 
 		expected = validationData.expected
@@ -347,7 +347,7 @@ describe( 'distributions-beta-cdf', function tests() {
 			'path': 'x/1',
 			'sep': '/',
 			'alpha': validationData.alpha,
-		'beta': validationData.beta
+			'beta': validationData.beta
 		});
 		assert.strictEqual( actual, data );
 
@@ -374,7 +374,7 @@ describe( 'distributions-beta-cdf', function tests() {
 		mat = matrix( d1, [5,5], 'float64' );
 		out = cdf( mat, {
 			'alpha': validationData.alpha,
-		'beta': validationData.beta
+			'beta': validationData.beta
 		});
 
 		for ( i = 0; i < out.length; i++ ) {
@@ -387,7 +387,7 @@ describe( 'distributions-beta-cdf', function tests() {
 		out = cdf( mat, {
 			'copy': false,
 			'alpha': validationData.alpha,
-		'beta': validationData.beta
+			'beta': validationData.beta
 		});
 		assert.strictEqual( mat, out );
 
@@ -413,7 +413,7 @@ describe( 'distributions-beta-cdf', function tests() {
 		out = cdf( mat, {
 			'dtype': 'float32',
 			'alpha': validationData.alpha,
-		'beta': validationData.beta
+			'beta': validationData.beta
 		});
 
 		assert.strictEqual( out.dtype, 'float32' );

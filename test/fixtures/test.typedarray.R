@@ -2,7 +2,7 @@ options( digits = 16 )
 library( jsonlite )
 
 alpha = 1.3
-beta = 0.7
+beta = 2.5
 x = seq( 0, 1, 0.01 )
 y = pbeta( x, alpha, beta )
 
