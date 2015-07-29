@@ -1,6 +1,6 @@
 Cumulative Distribution Function
 ===
-[![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Coverage Status][coveralls-image]][coveralls-url] [![Dependencies][dependencies-image]][dependencies-url]
+[![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Coverage Status][codecov-image]][codecov-url] [![Dependencies][dependencies-image]][dependencies-url]
 
 > [Beta](https://en.wikipedia.org/wiki/Beta_distribution) distribution [cumulative distribution function](https://en.wikipedia.org/wiki/Cumulative_distribution_function).
 
@@ -382,8 +382,8 @@ Copyright &copy; 2015. The [Compute.io](https://github.com/compute-io) Authors.
 [travis-image]: http://img.shields.io/travis/distributions-io/beta-cdf/master.svg
 [travis-url]: https://travis-ci.org/distributions-io/beta-cdf
 
-[coveralls-image]: https://img.shields.io/coveralls/distributions-io/beta-cdf/master.svg
-[coveralls-url]: https://coveralls.io/r/distributions-io/beta-cdf?branch=master
+[codecov-image]: https://img.shields.io/codecov/github/distributions-io/beta-cdf/master.svg
+[codecov-url]: https://codecov.io/github/distributions-io/beta-cdf?branch=master
 
 [dependencies-image]: http://img.shields.io/david/distributions-io/beta-cdf.svg
 [dependencies-url]: https://david-dm.org/distributions-io/beta-cdf
